@@ -28,10 +28,6 @@ $wgAutoloadClasses['SpecialBracketContest'] = $dir . 'SpecialBracketContest.php'
 $wgSpecialPages['BracketContest'] = 'SpecialBracketContest';
 $wgSpecialPageGroups['BracketContest'] = 'liquipedia';
 
-define ('DBNAME', 'fishystuff');
-define ('DBUSER', 'root');
-define ('DBPASSWORD', '');
-
 $wgAutoloadClasses += array(
 	'Connection'       => $dirAPI . 'Connection.php',
 	'Contest'          => $dirAPI . 'Contest.php',
