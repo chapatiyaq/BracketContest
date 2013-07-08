@@ -1,0 +1,54 @@
+.bct-last-three-contests {
+	white-space: nowrap;
+}
+
+.bct-banner {
+	width: 267px;
+	height: 178px;
+	line-height: 175px;
+	background: #f0f0f0;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	margin-right: 22px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.bct-banner>div {
+	line-height: 1.5em;
+	display: inline-block;
+}
+
+#contest td {
+	vertical-align: inherit;
+}
+
+#contest tr {
+	line-height: 20px;
+}
+
+#contest td.starcraft-brood-war {
+	padding-left: 30px;
+	/* @embed */
+	background-image: url(icons/bwlogo_std.png);
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}
+
+#contest td.starcraft-ii {
+	padding-left: 30px;
+	/* @embed */
+	background-image: url(icons/sc2logo_std.png);
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}
+
+#contest td.dota-2 {
+	padding-left: 30px;
+	/* @embed */
+	background-image: url(icons/dota2logo_std.png);
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}

@@ -1,0 +1,20 @@
+#pager img {
+	width: 16px;
+	height: 16px;
+}
+#pager .first {
+	/* @embed */
+	background: url(icons/first.png) 0 0 no-repeat;
+}
+#pager .prev {
+	/* @embed */
+	background: url(icons/prev.png) 0 0 no-repeat;
+}
+#pager .next {
+	/* @embed */
+	background: url(icons/next.png) 0 0 no-repeat;
+}
+#pager .last {
+	/* @embed */
+	background: url(icons/last.png) 0 0 no-repeat;
+}
