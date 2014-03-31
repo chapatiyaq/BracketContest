@@ -40,7 +40,7 @@ class ParticipantTable {
 		
 	public function fetchSubmissions($id) {
 		$stmt = $this->conn->prepare('SELECT c.id, c.title, c.game, u.link, u.points FROM contests c, userentries u 
-										WHERE u.contestid = c.id AND userid = ?');
+										WHERE u.contestid = c.id AND c.public = 1 AND userid = ?');
 		if ($stmt->execute(array($id))) {
 			return $stmt->fetchAll();
 		}

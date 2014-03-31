@@ -14,7 +14,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'author' => '[http://wiki.teamliquid.net/starcraft2/User:PhiLtheFisH PhiLtheFisH] & [http://wiki.teamliquid.net/starcraft2/User:ChapatiyaqPTSM Chapatiyaq] ',
 	'url' => 'http://wiki.teamliquid.net/starcraft2/',
 	'descriptionmsg' => 'bracketcontest-desc',
-	'version' => '0.0.1',
+	'version' => '0.1',
 );
 
 $dir = dirname(__FILE__) . '/';
@@ -44,8 +44,8 @@ $bracketContestTpl = array(
 );
 $wgResourceModules += array(
 	'ext.bracketContest.BasePage' => $bracketContestTpl + array(
-		'scripts' => array( 'ext.bracketContest.BasePage.js',
-			'jquery.tablesorter.min.js'
+		'scripts' => array( 'jquery.tablesorter.min.js',
+			'ext.bracketContest.BasePage.js'
 		),
 		'styles' => array(
 			'ext.bracketContest.BasePage.css',
@@ -53,11 +53,11 @@ $wgResourceModules += array(
 		)
 	),
 	'ext.bracketContest.RankingPage' => $bracketContestTpl + array(
-		'scripts' => array( 'ext.bracketContest.RankingPage.js',
-			'jquery.tablesorter.min.js',
+		'scripts' => array( 'jquery.tablesorter.min.js',
 			'jquery.tablesorter.pager.min.js',
 			'jquery.tablesorter.widgets.min.js',
-			'jquery.tablesorter.widgets-filter-formatter.min.js'
+			'jquery.tablesorter.widgets-filter-formatter.min.js',
+			'ext.bracketContest.RankingPage.js'
 		),
 		'styles' => array( 'ext.bracketContest.RankingPage.css',
 			'ext.bracketContest.theme.default.css',
@@ -65,8 +65,8 @@ $wgResourceModules += array(
 		)
 	),
 	'ext.bracketContest.UserPage' => $bracketContestTpl + array(
-		'scripts' => array( 'ext.bracketContest.UserPage.js',
-			'jquery.tablesorter.min.js'
+		'scripts' => array( 'jquery.tablesorter.min.js',
+			'ext.bracketContest.UserPage.js'
 		),
 		'styles' => 'ext.bracketContest.theme.default.css'
 	),

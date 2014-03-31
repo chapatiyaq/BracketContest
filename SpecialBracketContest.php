@@ -78,10 +78,12 @@ class SpecialBracketContest extends SpecialPage {
 		);
 		$participants = $this->controller->getParticipants($id);
 		$ranking = 0;
+		$index = 0;
 		$points = null;
 		foreach ($participants as $participant) {
+			$index++;
 			if ($participant->points != $points) {
-				$ranking++;
+				$ranking = $index;
 				$points = $participant->points;
 			}
 
@@ -195,14 +197,17 @@ class SpecialBracketContest extends SpecialPage {
 			$imageTitle = Title::makeTitleSafe(NS_FILE, 'BC' . $contest->id . '_small.png');
 			$imageFile = wfFindFile( $imageTitle );
 			if (!is_object( $imageFile ) || !$imageFile->exists()) {
-				$imageTitle = Title::makeTitleSafe(NS_FILE, 'BCfiller_small.png');
-				$imageFile = wfFindFile( $imageTitle );
+				$image = Html::rawElement('a',
+					array('href' => $this->getTitle()->getFullURL('module=ranking&id=' . $contest->id)),
+					Html::element('div', array('class' => 'small-icon-filler'))
+				);
+			} else {
+				$image = Linker::makeImageLink2( $imageTitle,
+					$imageFile,
+					array('link-url' => $this->getTitle()->getFullURL('module=ranking&id=' . $contest->id)),
+					array('width' => 25, 'height' => 25)
+				);
 			}
-			$image = Linker::makeImageLink2( $imageTitle,
-				$imageFile,
-				array('link-url' => $this->getTitle()->getFullURL('module=ranking&id=' . $contest->id)),
-				array('width' => 25, 'height' => 25)
-			);
 			$contestsTable['rows'][] = array(
 				array(
 					'html' => $image . '&nbsp;&nbsp;' . Linker::link( $this->getTitle(), $contest->title, array('title' => $contest->title), array( 'module' => 'ranking', 'id' => $contest->id ))
@@ -227,6 +232,7 @@ class SpecialBracketContest extends SpecialPage {
 	}
 
 	function getSubmissionLinkFromURL( $url ) {
+		$url = str_replace('&oldid=', '?oldid=', $url);
 		return Html::element('a', array('href' => $url, 'title' => 'link'), 'link');
 	}
 

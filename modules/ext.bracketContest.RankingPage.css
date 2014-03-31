@@ -5,16 +5,20 @@
 #pager .first {
 	/* @embed */
 	background: url(icons/first.png) 0 0 no-repeat;
+	display: inline-block;
 }
 #pager .prev {
 	/* @embed */
 	background: url(icons/prev.png) 0 0 no-repeat;
+	display: inline-block;
 }
 #pager .next {
 	/* @embed */
 	background: url(icons/next.png) 0 0 no-repeat;
+	display: inline-block;
 }
 #pager .last {
 	/* @embed */
 	background: url(icons/last.png) 0 0 no-repeat;
+	display: inline-block;
 }

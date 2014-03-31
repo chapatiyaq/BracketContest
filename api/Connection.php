@@ -5,14 +5,19 @@ class Connection {
     protected static $db;
 
     private function __construct() {
-        global $wgBracketContestDbName, $wgBracketContestDbUser, $wgBracketContestDbPassword;
+        global $wgBracketContestDbType,
+            $wgBracketContestDbServer,
+            $wgBracketContestDbName,
+            $wgBracketContestDbUser,
+            $wgBracketContestDbPassword;
         
         try {
-            self::$db = new PDO( 'mysql:host=localhost;dbname=' . $wgBracketContestDbName, $wgBracketContestDbUser, $wgBracketContestDbPassword);
+            self::$db = new PDO( $wgBracketContestDbType . ':host=' . $wgBracketContestDbServer. ';dbname=' . $wgBracketContestDbName,
+                $wgBracketContestDbUser, $wgBracketContestDbPassword);
             self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         }
         catch (PDOException $e) {
-            // echo "Connection Error: " . $e->getMessage();
+            echo "Connection Error: " . $e->getMessage();
         }
 
     }

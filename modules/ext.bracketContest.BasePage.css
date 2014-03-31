@@ -29,6 +29,13 @@
 	line-height: 20px;
 }
 
+#contest .small-icon-filler {
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
 #contest td.starcraft-brood-war {
 	padding-left: 30px;
 	/* @embed */
