@@ -14,7 +14,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'author' => '[http://wiki.teamliquid.net/starcraft2/User:PhiLtheFisH PhiLtheFisH] & [http://wiki.teamliquid.net/starcraft2/User:ChapatiyaqPTSM Chapatiyaq] ',
 	'url' => 'http://wiki.teamliquid.net/starcraft2/',
 	'descriptionmsg' => 'bracketcontest-desc',
-	'version' => '0.1.2',
+	'version' => '0.1.3',
 );
 
 $dir = dirname(__FILE__) . '/';

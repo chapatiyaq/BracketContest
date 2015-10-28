@@ -36,6 +36,10 @@
 	vertical-align: bottom;
 }
 
+#contest td.game {
+	white-space: nowrap;
+}
+
 #contest td.starcraft-brood-war {
 	padding-left: 30px;
 	/* @embed */
@@ -56,6 +60,38 @@
 	padding-left: 30px;
 	/* @embed */
 	background-image: url(icons/dota2logo_std.png);
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}
+
+#contest td.hearthstone {
+	padding-left: 30px;
+	/* @embed */
+	background-image: url(icons/hslogo_std.png);
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}
+
+#contest td.heroes-of-the-storm {
+	padding-left: 30px;
+	/* @embed */
+	background-image: url(icons/heroeslogo_std.png);
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}
+
+#contest td.super-smash-bros {
+	padding-left: 30px;
+	/* @embed */
+	background-image: url(icons/smashlogo_std.png);
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}
+
+#contest td.counter-strike {
+	padding-left: 30px;
+	/* @embed */
+	background-image: url(icons/cslogo_std.png);
 	background-repeat: no-repeat;
 	background-position: 0 2px;
 }

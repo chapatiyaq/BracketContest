@@ -1,8 +1,14 @@
 $(function() {
 
 	// call the tablesorter plugin
+	if (!$("#contest > tbody").length)
+		$("#contest").prepend($('<tbody>'));
+	if (!$("#contest > thead").length)
+		$("#contest").prepend($('<thead>'));
+	$('#contest > tbody').append($('#contest tr').detach());
+	$('#contest > thead').append($('#contest tr:first').detach());
+	
 	$("#contest").tablesorter({
-		showProcessing : true,
 		theme : 'default',
 		headerTemplate : '{content} {icon}', // new in v2.7. Needed to add
 		// the bootstrap icon!

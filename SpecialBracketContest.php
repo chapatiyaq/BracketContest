@@ -95,7 +95,7 @@ class SpecialBracketContest extends SpecialPage {
 			);
 		}
 
-		$out->addHTML(self::buildTable($rankingsTable));
+		$out->addHTML(self::buildTableHtml($rankingsTable));
 
 		// Pager 2
 		$this->addPager();
@@ -143,7 +143,7 @@ class SpecialBracketContest extends SpecialPage {
 			);
 		}
 
-		$out->addHTML(self::buildTable($submissionsTable));
+		$out->addHTML(self::buildTableHtml($submissionsTable));
 	}
 
 	function addLastThreeContentsBanners( $lastThreeContests ) {
@@ -158,13 +158,13 @@ class SpecialBracketContest extends SpecialPage {
 				$imageTitle = Title::makeTitleSafe(NS_FILE, 'BC' . $contest->id . '.jpg');
 				$imageFile = wfFindFile( $imageTitle );
 				if (is_object( $imageFile ) && $imageFile->exists()) {
-					$link = Linker::makeImageLink2( $imageTitle,
-						$imageFile,
-						array('link-url' => $this->getTitle()->getFullURL('module=ranking&id=' . $contest->id), 'title' => $contest->title),
-						array('width' => 267, 'height' => 178)
-					);
+					$link = '[[File:BC' . $contest->id . '.jpg'
+						. '|267x178px'
+						. '|' . $contest->title
+						. '|link={{FULLURL:Special:BracketContest|module=ranking&id=' . $contest->id . '}}'
+						. ']]';
 				} else {
-					$link = '<div>' . Linker::link( $this->getTitle(), $contest->title, array('title' => $contest->title), array( 'module' => 'ranking', 'id' => $contest->id )) . '</div>';
+					$link = '<div class="plainlinks">[{{FULLURL:Special:BracketContest|module=ranking&id=' . $contest->id . '}} ' . $contest->title . ']</div>';
 				}
 			}
 
@@ -173,7 +173,7 @@ class SpecialBracketContest extends SpecialPage {
 
 		$output .= '</div>';
 
-		$out->addHTML($output);
+		$out->addWikitext($output);
 	}
 
 	function addContestsTable( $contests ) {
@@ -181,11 +181,11 @@ class SpecialBracketContest extends SpecialPage {
 
 		$contestsTable = array(
 			'header' => array(
-				array( 'html' => 'Title' , 'attributes' => array( 'width' => '250') ),
-				array( 'html' => 'Game' ),
-				array( 'html' => 'Start' ),
-				array( 'html' => 'Submissions before' ),
-				array( 'html' => 'End' ),
+				array( 'wikitext' => 'Title' , 'attributes' => array( 'style' => 'width:250px') ),
+				array( 'wikitext' => 'Game' ),
+				array( 'wikitext' => 'Start' ),
+				array( 'wikitext' => 'Submissions before' ),
+				array( 'wikitext' => 'End' ),
 			),
 			'rows' => array(),
 			'attributes' => array('id' => 'contest',
