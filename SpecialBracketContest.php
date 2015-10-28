@@ -197,38 +197,40 @@ class SpecialBracketContest extends SpecialPage {
 			$imageTitle = Title::makeTitleSafe(NS_FILE, 'BC' . $contest->id . '_small.png');
 			$imageFile = wfFindFile( $imageTitle );
 			if (!is_object( $imageFile ) || !$imageFile->exists()) {
-				$image = Html::rawElement('a',
-					array('href' => $this->getTitle()->getFullURL('module=ranking&id=' . $contest->id)),
-					Html::element('div', array('class' => 'small-icon-filler'))
-				);
+				$image = '[[File:LeaguesPlaceholder.png'
+						. '|25x25px'
+						. '|' . $contest->title
+						. '|link={{FULLURL:Special:BracketContest|module=ranking&id=' . $contest->id . '}}'
+						. ']]';
 			} else {
-				$image = Linker::makeImageLink2( $imageTitle,
-					$imageFile,
-					array('link-url' => $this->getTitle()->getFullURL('module=ranking&id=' . $contest->id)),
-					array('width' => 25, 'height' => 25)
-				);
+				$image = '[[File:BC' . $contest->id . '_small.png'
+						. '|25x25px'
+						. '|' . $contest->title
+						. '|link={{FULLURL:Special:BracketContest|module=ranking&id=' . $contest->id . '}}'
+						. ']]';
 			}
 			$contestsTable['rows'][] = array(
 				array(
-					'html' => $image . '&nbsp;&nbsp;' . Linker::link( $this->getTitle(), $contest->title, array('title' => $contest->title), array( 'module' => 'ranking', 'id' => $contest->id ))
+					'wikitext' => $image . '&nbsp;&nbsp;'
+						. '<span class="plainlinks">[{{FULLURL:Special:BracketContest|module=ranking&id=' . $contest->id . '}} ' . $contest->title . ']</span>'
 				),
 				array(
-					'html' => $contest->game,
-					'attributes' => array( 'class' => strtolower( str_replace( array(':', ' '), array('-', '-'), $contest->game ) ) )
+					'wikitext' => $contest->game,
+					'attributes' => array( 'class' => 'game ' . strtolower( str_replace( array(': ', ':', ' '), array('-', '-', '-'), $contest->game ) ) )
 				),
 				array(
-					'html' => $contest->startdate ? date_format(date_create($contest->startdate), 'Y-m-d H:i') : ''
+					'wikitext' => $contest->startdate ? date_format(date_create($contest->startdate), 'Y-m-d H:i') : ''
 				),
 				array(
-					'html' => $contest->submissiondate ? date_format(date_create($contest->submissiondate), 'Y-m-d H:i') : ''
+					'wikitext' => $contest->submissiondate ? date_format(date_create($contest->submissiondate), 'Y-m-d H:i') : ''
 				),
 				array(
-					'html' => $contest->enddate ? date_format(date_create($contest->enddate), 'Y-m-d H:i') : ''
+					'wikitext' => $contest->enddate ? date_format(date_create($contest->enddate), 'Y-m-d H:i') : ''
 				)
 			);
 		}
 
-		$out->addHTML(self::buildTable($contestsTable));
+		$out->addWikitext(self::buildTableWikitext($contestsTable));
 	}
 
 	function getSubmissionLinkFromURL( $url ) {
@@ -263,7 +265,60 @@ EOT;
 		$out->addHTML($html);
 	}
 
-	function buildTable( $variables ) {
+	function buildTableWikitext( $variables ) {
+		$header = $variables['header'];
+		$rows = $variables['rows'];
+		$attributes = $variables['attributes'];
+
+		$output = '{|';
+		
+		if (count($attributes)) {
+			foreach ($attributes as $key => $value) {
+				$output .= ($key . '="' . $value . '" ');
+			}
+		}
+
+		$output .= "\n";
+
+		// Header
+		if (count($header)) {
+			$output .= "|-\n";
+			foreach ($header as $cell) {
+				$cellAttributes = isset( $cell['attributes'] ) ? $cell['attributes'] : array();
+				$output .= '!';
+				if (count($cellAttributes)) {
+					foreach ($cellAttributes as $key => $value) {
+						$output .= ($key . '="' . $value . '" ');
+					}
+				}
+				$output .= '|' . $cell['wikitext'] . "\n";
+			}
+		}
+
+		// Rows
+		if (count($rows)) {
+    		foreach($rows as $row) {
+				$output .= "|-\n";
+				foreach ($row as $cell) {
+					$cellAttributes = isset( $cell['attributes'] ) ? $cell['attributes'] : array();
+					$output .= '|';
+					if (count($cellAttributes)) {
+						foreach ($cellAttributes as $key => $value) {
+							$output .= ($key . '="' . $value . '" ');
+						}
+					}
+					$output .= '|' . $cell['wikitext'] . "\n";
+				}
+			}
+    	}
+
+    	// Table
+		$output .= '|}' . "\n";
+
+		return $output;
+	}
+
+	function buildTableHtml( $variables ) {
 		$header = $variables['header'];
 		$rows = $variables['rows'];
 		$attributes = $variables['attributes'];
