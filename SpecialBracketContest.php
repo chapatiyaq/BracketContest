@@ -1,12 +1,4 @@
 <?php
-/*include ('global.php');
-include ('Connection.php');
-include ('Controller.php');
-include ('Contest.php');
-include ('ContestTable.php');
-include ('Participant.php');
-include ('ParticipantTable.php');*/
-
 class SpecialBracketContest extends SpecialPage {
 	protected $controller;
 
@@ -36,7 +28,7 @@ class SpecialBracketContest extends SpecialPage {
 		$out->addModules( 'ext.bracketContest.BasePage' );
 		$out->setPageTitle(wfMessage('bracketcontest-base-page-title'));
 
-		$contests = $this->controller->getContests(array('startdate' => 'DESC', 'id' => 'DESC'));
+		$contests = $this->controller->getContests( array('startdate' => 'DESC', 'id' => 'DESC') );
 
 		$lastThreeContests = array_pad( array_slice($contests, 0, 3), 3, null);
 		self::addLastThreeContentsBanners( $lastThreeContests );
@@ -49,7 +41,7 @@ class SpecialBracketContest extends SpecialPage {
 		$out = $this->getOutput();
 
 		$out->addModules( 'ext.bracketContest.RankingPage' );
-		$out->setSubtitle(Linker::link($this->getTitle(), 'All contests'));
+		$out->setSubtitle( Linker::link( $this->getTitle(), wfMessage('bracketcontest-all-contests') ) );
 
 		$id = $request->getVal('id');
 		$contest = $this->controller->getContest( $id );
@@ -67,10 +59,10 @@ class SpecialBracketContest extends SpecialPage {
 		$rankingsTable = array(
 			'header' => array( 
 				array( 'html' => '#', 'attributes' => array('class' => 'filter-false') ),
-				array( 'html' => 'Name', 'attributes' => array('width' => '160') ),
-				array( 'html' => 'Points', 'attributes' => array('class' => 'filter-false') ),
-				array( 'html' => 'Max possible', 'attributes' => array('class' => 'filter-false') ),
-				array( 'html' => 'Submission', 'attributes' => array('class' => 'filter-false') )
+				array( 'html' => wfMessage('bracketcontest-name'), 'attributes' => array('width' => '160') ),
+				array( 'html' => wfMessage('bracketcontest-points'), 'attributes' => array('class' => 'filter-false') ),
+				array( 'html' => wfMessage('bracketcontest-maxpossiblepoints'), 'attributes' => array('class' => 'filter-false') ),
+				array( 'html' => wfMessage('bracketcontest-submission'), 'attributes' => array('class' => 'filter-false') )
 			),
 			'rows' => array(),
 			'attributes' => array('id' => 'ranking',
@@ -112,24 +104,24 @@ class SpecialBracketContest extends SpecialPage {
 		$name = $request->getVal('name');
 		$participant = $this->controller->getParticipantByName( $name );
 		if ( $participant->id === null ) {
-			$out->addHTML(wfMessage('bracketcontest-participant-not-found'));
+			$out->addHTML( wfMessage('bracketcontest-participant-not-found') );
 			return;
 		}
 
-		$out->setPageTitle('User submissions');
+		$out->setPageTitle( wfMessage('bracketcontest-user-submissions-title') );
 
 		$submissions = $this->controller->getSubmissions( $participant->id );
 
 		$nt = Title::makeTitleSafe( NS_USER, $name );
-		$out->setSubtitle('For ' . Linker::link($nt, $name) . ' &bull; ' . Linker::link($this->getTitle(), 'All contests'));
+		$out->setSubtitle( wfMessage('bracketcontest-user-submissions-subtitle-start', $name)->parse() . " &bull; " . Linker::link( $this->getTitle(), wfMessage('bracketcontest-all-contests') ) );
 
 		// Table
 		$submissionsTable = array(
 			'header' => array(
-				array( 'html' => 'Title' , 'attributes' => array( 'width' => '300') ),
-				array( 'html' => 'Game' ),
-				array( 'html' => 'Points' ),
-				array( 'html' => 'Submission' )
+				array( 'html' => wfMessage('bracketcontest-title'), 'attributes' => array( 'width' => '300') ),
+				array( 'html' => wfMessage('bracketcontest-game') ),
+				array( 'html' => wfMessage('bracketcontest-points') ),
+				array( 'html' => wfMessage('bracketcontest-submission') )
 			),
 			'rows' => array(),
 			'attributes' => array('id' => 'submissions',
@@ -138,7 +130,7 @@ class SpecialBracketContest extends SpecialPage {
 		);
 		foreach ($submissions as $submission) {
 			$submissionsTable['rows'][] = array(
-				array( 'html' => Linker::link( $this->getTitle(), $submission['title'], array(), array( 'module' => 'ranking', 'id' => $submission['id'] )) ),
+				array( 'html' => Linker::link( $this->getTitle(), $submission['title'], array(), array( 'module' => 'ranking', 'id' => $submission['id'] ) ) ),
 				array( 'html' => $submission['game'] ),
 				array( 'html' => $submission['points'] ),
 				array( 'html' => self::getSubmissionLinkFromURL($submission['link']) )
@@ -157,7 +149,7 @@ class SpecialBracketContest extends SpecialPage {
 			$link = '';
 			
 			if ($contest !== null) {
-				$imageTitle = Title::makeTitleSafe(NS_FILE, 'BC' . $contest->id . '.jpg');
+				$imageTitle = Title::makeTitleSafe( NS_FILE, 'BC' . $contest->id . '.jpg' );
 				$imageFile = wfFindFile( $imageTitle );
 				if (is_object( $imageFile ) && $imageFile->exists()) {
 					$link = '[[File:BC' . $contest->id . '.jpg'
@@ -183,11 +175,11 @@ class SpecialBracketContest extends SpecialPage {
 
 		$contestsTable = array(
 			'header' => array(
-				array( 'wikitext' => 'Title' , 'attributes' => array( 'style' => 'width:250px') ),
-				array( 'wikitext' => 'Game' ),
-				array( 'wikitext' => 'Start' ),
-				array( 'wikitext' => 'Submissions before' ),
-				array( 'wikitext' => 'End' ),
+				array( 'wikitext' => wfMessage('bracketcontest-title'), 'attributes' => array( 'style' => 'width:250px') ),
+				array( 'wikitext' => wfMessage('bracketcontest-game') ),
+				array( 'wikitext' => wfMessage('bracketcontest-start') ),
+				array( 'wikitext' => wfMessage('bracketcontest-submissions-before') ),
+				array( 'wikitext' => wfMessage('bracketcontest-end') ),
 			),
 			'rows' => array(),
 			'attributes' => array('id' => 'contest',
@@ -237,7 +229,7 @@ class SpecialBracketContest extends SpecialPage {
 
 	function getSubmissionLinkFromURL( $url ) {
 		$url = str_replace('&oldid=', '?oldid=', $url);
-		return Html::element('a', array('href' => $url, 'title' => 'link'), 'link');
+		return Html::element('a', array('href' => $url, 'title' => 'link'), wfMessage('bracketcontest-link'));
 	}
 
 	function addPager() {
