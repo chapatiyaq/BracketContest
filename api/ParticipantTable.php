@@ -48,10 +48,10 @@ class ParticipantTable {
 	}
 	
 	public function fetchByContest($id) {
-		$stmt = $this->conn->prepare('SELECT id, name, link, points
+		$stmt = $this->conn->prepare('SELECT id, name, link, points, maxpossiblepoints
 										FROM users, userentries
 										WHERE id = userid AND contestid = :contestid
-										ORDER BY points DESC');
+										ORDER BY points DESC, maxpossiblepoints DESC');
 		$stmt->bindValue(':contestid', $id);
 		$users = array();
 		if ($stmt->execute()) {
