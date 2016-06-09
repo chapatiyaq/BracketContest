@@ -1,0 +1,15 @@
+Installation instructions
+=========================
+
+1. Extract the files in a directory called "BracketContest" in your extensions/ folder.
+
+2. Add the following code to your LocalSettings.php (at the bottom):
+
+require_once( "$IP/extensions/BracketContest/BracketContest.php" );
+
+## Bracket Contest Database settings
+$wgBracketContestDbType     = 'mysql';
+$wgBracketContestDbServer   = 'localhost';
+$wgBracketContestDbName     = 'exampledb';
+$wgBracketContestDbUser     = 'user';
+$wgBracketContestDbPassword = 'password';

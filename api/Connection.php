@@ -17,7 +17,7 @@ class Connection {
             self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         }
         catch (PDOException $e) {
-            echo "Connection Error: " . $e->getMessage();
+            // echo "Connection Error: " . $e->getMessage();
         }
 
     }

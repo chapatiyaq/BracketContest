@@ -36,6 +36,7 @@ class Participant {
 		$this->name = (isset($data['name'])) ? $data['name'] : null;
 		$this->link = (isset($data['link'])) ? $data['link'] : null;
 		$this->points = (isset($data['points'])) ? $data['points'] : null;
+		$this->maxpossiblepoints = (isset($data['maxpossiblepoints'])) ? $data['maxpossiblepoints'] : null;
 	}
 	
 }

@@ -69,6 +69,7 @@ class SpecialBracketContest extends SpecialPage {
 				array( 'html' => '#', 'attributes' => array('class' => 'filter-false') ),
 				array( 'html' => 'Name', 'attributes' => array('width' => '160') ),
 				array( 'html' => 'Points', 'attributes' => array('class' => 'filter-false') ),
+				array( 'html' => 'Max possible', 'attributes' => array('class' => 'filter-false') ),
 				array( 'html' => 'Submission', 'attributes' => array('class' => 'filter-false') )
 			),
 			'rows' => array(),
@@ -91,6 +92,7 @@ class SpecialBracketContest extends SpecialPage {
 				array( 'html' => $ranking ),
 				array( 'html' => Linker::link( $this->getTitle(), $participant->name, array(), array( 'module' => 'user', 'name' => $participant->name )) ),
 				array( 'html' => $participant->points ),
+				array( 'html' => $participant->maxpossiblepoints ),
 				array( 'html' => self::getSubmissionLinkFromURL($participant->link) )
 			);
 		}
